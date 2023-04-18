@@ -18,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 var configurationBuilder = new ConfigurationBuilder()
         .SetBasePath(builder.Environment.ContentRootPath)
-        .AddJsonFile("appsettings-json", optional: false, reloadOnChange: true)
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
         .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: false, reloadOnChange: true)
         .AddEnvironmentVariables();
 
@@ -36,11 +36,13 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    
 }
 
 app.UseHttpsRedirection();
